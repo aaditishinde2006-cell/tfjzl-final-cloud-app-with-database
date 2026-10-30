@@ -8,7 +8,7 @@
 
     {% load static %}
 
-    <title>Exam Results</title>
+    <title>Exam Results - {{ course.name }}</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -47,7 +47,7 @@
     </nav>
 
 
-    <!-- Exam result -->
+    <!-- Main result section -->
     <div class="container mt-4">
 
         <h2>Exam Results</h2>
@@ -56,11 +56,10 @@
 
         <hr>
 
+        <!-- Pass or fail message -->
         {% if total_grade > 0 %}
 
-            {% widthratio score total_grade 100 as percentage %}
-
-            {% if percentage|add:"0" >= 80 %}
+            {% if grade >= 80 %}
 
                 <div class="alert alert-success">
                     <h4>Congratulations!</h4>
@@ -76,6 +75,8 @@
 
             {% endif %}
 
+
+            <!-- Score card -->
             <div class="card mb-4">
 
                 <div class="card-body">
@@ -87,7 +88,11 @@
                     </h2>
 
                     <p>
-                        Percentage: {{ percentage }}%
+                        Percentage: {{ grade }}%
+                    </p>
+
+                    <p>
+                        Passing percentage: 80%
                     </p>
 
                 </div>
@@ -125,32 +130,58 @@
 
                 <div class="card-body">
 
-                    <p><strong>Your selected answer(s):</strong></p>
+                    <p>
+                        <strong>Your selected answer(s):</strong>
+                    </p>
 
                     {% for choice in result.selected_choices %}
+
                         <p>
                             <span class="badge badge-secondary">
                                 {{ choice.choice_text }}
                             </span>
                         </p>
+
                     {% empty %}
-                        <p class="text-muted">No answer selected.</p>
+
+                        <p class="text-muted">
+                            No answer selected.
+                        </p>
+
                     {% endfor %}
 
                     <hr>
 
-                    <p><strong>Correct answer(s):</strong></p>
+                    <p>
+                        <strong>Correct answer(s):</strong>
+                    </p>
 
                     {% for choice in result.correct_choices %}
+
                         <p class="text-success">
                             <strong>{{ choice.choice_text }}</strong>
                         </p>
+
+                    {% empty %}
+
+                        <p class="text-muted">
+                            No correct answer configured.
+                        </p>
+
                     {% endfor %}
 
                     {% if result.score == result.grade %}
-                        <span class="badge badge-success">Correct</span>
+
+                        <span class="badge badge-success">
+                            Correct
+                        </span>
+
                     {% else %}
-                        <span class="badge badge-danger">Incorrect</span>
+
+                        <span class="badge badge-danger">
+                            Incorrect
+                        </span>
+
                     {% endif %}
 
                 </div>
@@ -166,6 +197,7 @@
         {% endfor %}
 
 
+        <!-- Back to course -->
         <a class="btn btn-primary mt-4 mb-5"
            href="{% url 'onlinecourse:course_details' course.id %}">
             Back to Course
