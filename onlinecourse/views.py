@@ -320,19 +320,19 @@ def show_exam_result(request, course_id, submission_id):
 
     # Prepare template context
     context = {
-        'course': course,
-        'submission': submission,
-        'questions': questions,
-        'question_results': question_results,
-        'score': total_score,
-        'total_score': total_score,
-        'total_grade': total_grade,
-        'total': total_grade,
-        'correct': total_score,
-        'grade': percentage,
-        'percentage': percentage,
-    }
-
+    'course': course,
+    'submission': submission,
+    'questions': questions,
+    'question_results': question_results,
+    'score': total_score,
+    'total_score': total_score,
+    'total_grade': total_grade,
+    'possible_score': total_grade,
+    'total': total_grade,
+    'correct': total_score,
+    'grade': percentage,
+    'percentage': percentage,
+}
     return render(
         request,
         'onlinecourse/exam_result_bootstrap.html',
