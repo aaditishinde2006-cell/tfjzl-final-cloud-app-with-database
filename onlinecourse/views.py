@@ -246,6 +246,10 @@ def submit(request, course_id):
 # Show exam result
 def show_exam_result(request, course_id, submission_id):
 
+    # Check authentication
+    if not request.user.is_authenticated:
+        return redirect('onlinecourse:login')
+
     course = get_object_or_404(
         Course,
         pk=course_id
