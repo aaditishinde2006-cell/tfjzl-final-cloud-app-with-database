@@ -34,17 +34,17 @@ urlpatterns = [
     ),
 
     # Submit exam
-    path(
-        '<int:course_id>/submit/',
-        views.submit,
-        name='submit'
-    ),
+path(
+    '<int:course_id>/submit/',
+    views.submit,
+    name='submit'
+),
 
-    # Display exam result
-    path(
-        '<int:course_id>/submission/<int:submission_id>/',
-        views.show_exam_result,
-        name='show_exam_result'
-    ),
+# Display exam result
+path(
+    '<int:course_id>/submission/<int:submission_id>/result/',
+    views.show_exam_result,
+    name='show_exam_result'
+),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
